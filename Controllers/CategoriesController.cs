@@ -44,11 +44,11 @@ namespace CodePulse.API.Controllers
             return Ok(response);
         }
 
-        //GET: https://localhost:7005/api/Categories
+        //GET: https://localhost:7005/api/Categories?query=java
         [HttpGet]
-        public async Task<IActionResult> GetAllCategories()
+        public async Task<IActionResult> GetAllCategories([FromQuery] string? query)
         {
-            var categories = await categoryRepository.GetAllAsync();
+            var categories = await categoryRepository.GetAllAsync(query);
 
             //Map Domain model to DTO
 
