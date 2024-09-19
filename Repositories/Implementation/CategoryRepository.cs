@@ -87,10 +87,19 @@ namespace BlogApplication.API.Repositories.Implementation
             return await dbContext.Categories.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<int> GetCount()
+
+        public async Task<int> GetCount(string? query = null)
         {
-            return await dbContext.Categories.CountAsync();
+            var categories = dbContext.Categories.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                categories = categories.Where(x => x.Name.Contains(query));
+            }
+
+            return await categories.CountAsync();
         }
+
 
         public async Task<Category?> UpdateAsync(Category category)
         {
