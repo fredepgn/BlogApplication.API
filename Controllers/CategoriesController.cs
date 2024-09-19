@@ -150,5 +150,16 @@ namespace CodePulse.API.Controllers
             return Ok(response);
 
         }
+
+        //GET: https://localhost:7005/api/categories/count
+        [HttpGet]
+        [Route("count")]
+        //[Authorize(Roles = "Writer")]
+        public async Task<IActionResult> GetTotalCategories()
+        {
+            var count = await categoryRepository.GetCount();
+
+            return Ok(count);
+        }
     }
 }
